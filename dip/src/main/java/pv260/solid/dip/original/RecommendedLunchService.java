@@ -35,7 +35,7 @@ private final DarkSkyForecastService weatherService;
     }
 
       private double findTomorrowsTemperatureAroundLunch() throws IOException{
-          DailyData tomorrowRecord = this.        tomorrowsWeatherRecord();
+          DailyData tomorrowRecord = this.tomorrowsWeatherRecord();
           return (tomorrowRecord.getTemperatureMin()+tomorrowRecord.getTemperatureMax()) /2;
     }
 

@@ -3,15 +3,18 @@ package pv260.solid.dip.original;
 import pv260.solid.dip.original.model.DarkSkyForecastResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import pv260.solid.dip.original.model.WeatherForecast;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
-public class DarkSkyForecastService {
+public class DarkSkyForecastService implements WeatherForecast {
 
     private static final String SERVICE_URL = "https://api.forecast.io/forecast/";
 
@@ -37,6 +40,19 @@ public class DarkSkyForecastService {
             return jsonParser.fromJson(responseReader, DarkSkyForecastResponse.class);
         }
     }
+
+//    public DailyData tomorrowsWeatherRecord() throws IOException {
+//        DarkSkyForecastResponse forecast = queryService();
+//        for (DarkSkyForecastResponse.DailyData record : forecast.getDaily().getData()) {
+//            LocalDateTime recordTime = LocalDateTime.ofEpochSecond(record.getTime(),
+//                    0,
+//                    ZoneOffset.UTC);
+//            if(recordTime.toLocalDate().equals(LocalDate.now().plusDays(1))){
+//                return record;
+//            }
+//        }
+//        throw new IllegalStateException("External service did not return record for tomorrow");
+//    }
 
     private String buildUrl(String apiKey, double longitude, double latitude, String time, String... queryParams) {
         StringBuilder request =
