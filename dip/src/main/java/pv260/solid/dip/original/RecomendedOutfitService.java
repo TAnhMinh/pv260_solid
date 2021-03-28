@@ -17,7 +17,7 @@ public class RecomendedOutfitService {
 
     public String recomendOutfitForTomorrow() {
         try {
-            double averageTemperature = this.findTomorrowsAverageTemperature();
+            double averageTemperature = weatherService.findTomorrowsAverageTemperature();
             if (averageTemperature < -10) {
                 return "It will be super cold, weak a jacket or two!";
             } else if (averageTemperature < 0) {
@@ -34,27 +34,27 @@ public class RecomendedOutfitService {
         }
     }
 
-    private double findTomorrowsAverageTemperature() throws IOException {
-        Temperature tomorrowTemperature = this.obtainTomorrowTemperatureRecord();
-        return (tomorrowTemperature.getMorn()
-                + tomorrowTemperature.getDay()
-                + tomorrowTemperature.getEve()) / 3;
-    }
-
-    private Temperature obtainTomorrowTemperatureRecord() throws IOException {
-        OpenWeatherMapResponse tomorrowWeather = this.weatherService.query();
-        for (ForecastTime record : tomorrowWeather.getTimes()) {
-            if (isTomorrow(LocalDate.parse(record.getDay(), ISO_DATE))) {
-                return record.getTemperature();
-            }
-        }
-        throw new IllegalStateException("External service did not return record for tomorrow");
-    }
-
-    //other services
-
-    private static boolean isTomorrow(LocalDate date) {
-        return date.equals(LocalDate.now().plusDays(1));
-    }
+//    private double findTomorrowsAverageTemperature() throws IOException {
+//        Temperature tomorrowTemperature = this.obtainTomorrowTemperatureRecord();
+//        return (tomorrowTemperature.getMorn()
+//                + tomorrowTemperature.getDay()
+//                + tomorrowTemperature.getEve()) / 3;
+//    }
+//
+//    private Temperature obtainTomorrowTemperatureRecord() throws IOException {
+//        OpenWeatherMapResponse tomorrowWeather = this.weatherService.query();
+//        for (ForecastTime record : tomorrowWeather.getTimes()) {
+//            if (isTomorrow(LocalDate.parse(record.getDay(), ISO_DATE))) {
+//                return record.getTemperature();
+//            }
+//        }
+//        throw new IllegalStateException("External service did not return record for tomorrow");
+//    }
+//
+//    //other services
+//
+//    private static boolean isTomorrow(LocalDate date) {
+//        return date.equals(LocalDate.now().plusDays(1));
+//    }
 
 }

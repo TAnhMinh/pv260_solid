@@ -4,5 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 
 public interface WeatherForecast {
-    public  query() throws IOException;
+    public double findTomorrowsAverageTemperature() throws IOException;
+
+    public double findTomorrowsTemperatureAroundLunch() throws IOException;
+
 }

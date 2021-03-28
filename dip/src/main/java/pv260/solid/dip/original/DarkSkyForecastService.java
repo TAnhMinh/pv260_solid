@@ -37,18 +37,30 @@ public class DarkSkyForecastService implements WeatherForecast {
         }
     }
 
-//    public DailyData tomorrowsWeatherRecord() throws IOException {
-//        DarkSkyForecastResponse forecast = queryService();
-//        for (DarkSkyForecastResponse.DailyData record : forecast.getDaily().getData()) {
-//            LocalDateTime recordTime = LocalDateTime.ofEpochSecond(record.getTime(),
-//                    0,
-//                    ZoneOffset.UTC);
-//            if(recordTime.toLocalDate().equals(LocalDate.now().plusDays(1))){
-//                return record;
-//            }
-//        }
-//        throw new IllegalStateException("External service did not return record for tomorrow");
-//    }
+    @Override
+    public double findTomorrowsAverageTemperature() throws IOException {
+        // TODO
+        return 0;
+    }
+
+    public double findTomorrowsTemperatureAroundLunch() throws IOException{
+          DailyData tomorrowRecord = this.tomorrowsWeatherRecord();
+          return (tomorrowRecord.getTemperatureMin()+tomorrowRecord.getTemperatureMax()) /2;
+    }
+
+
+    private DailyData tomorrowsWeatherRecord() throws IOException {
+        DarkSkyForecastResponse forecast = this.weatherService.queryService();
+        for (DailyData  record : forecast.getDaily().getData()) {
+            LocalDateTime recordTime = LocalDateTime.ofEpochSecond(record.getTime(),
+                                                                   0,
+                                                                   ZoneOffset.UTC);
+            if(recordTime.toLocalDate().equals(LocalDate.now().plusDays(1))){
+                return record;
+            }
+        }
+        throw new IllegalStateException("External service did not return record for tomorrow");
+    }
 
     private String buildUrl(String apiKey, double longitude, double latitude, String time, String... queryParams) {
         StringBuilder request =

@@ -4,9 +4,12 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.time.LocalDate;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
 import pv260.solid.dip.original.model.OpenWeatherMapResponse;
+
+import static java.time.format.DateTimeFormatter.ISO_DATE;
 
 public class OpenWeatherMapService implements WeatherForecast {
 
@@ -62,5 +65,35 @@ public class OpenWeatherMapService implements WeatherForecast {
 
     private static double targetLatitude() {
         return 16.6050103;
+    }
+
+    @Override
+    public double findTomorrowsAverageTemperature() throws IOException {
+        OpenWeatherMapResponse.Temperature tomorrowTemperature = this.obtainTomorrowTemperatureRecord();
+        return (tomorrowTemperature.getMorn()
+                + tomorrowTemperature.getDay()
+                + tomorrowTemperature.getEve()) / 3;
+    }
+
+    private OpenWeatherMapResponse.Temperature obtainTomorrowTemperatureRecord() throws IOException {
+        OpenWeatherMapResponse tomorrowWeather = query();
+        for (OpenWeatherMapResponse.ForecastTime record : tomorrowWeather.getTimes()) {
+            if (isTomorrow(LocalDate.parse(record.getDay(), ISO_DATE))) {
+                return record.getTemperature();
+            }
+        }
+        throw new IllegalStateException("External service did not return record for tomorrow");
+    }
+
+    //other services
+
+    private static boolean isTomorrow(LocalDate date) {
+        return date.equals(LocalDate.now().plusDays(1));
+    }
+
+    @Override
+    public double findTomorrowsTemperatureAroundLunch() throws IOException {
+        // TODO
+        return 0;
     }
 }

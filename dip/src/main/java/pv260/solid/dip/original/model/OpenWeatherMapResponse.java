@@ -6,7 +6,7 @@ import static javax.xml.bind.annotation.XmlAccessType.NONE;
 
 @XmlRootElement(name = "weatherdata")
 @XmlAccessorType(NONE)
-public class OpenWeatherMapResponse {
+public class OpenWeatherMapResponse{
 
     @XmlElement
     private Location location;

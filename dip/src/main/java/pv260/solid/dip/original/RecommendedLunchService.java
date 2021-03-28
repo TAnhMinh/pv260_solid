@@ -19,7 +19,7 @@ private final DarkSkyForecastService weatherService;
 
     public String recomendLunchForTomorrow(){
          try {
-            double temperatureAroundLunch = this.findTomorrowsTemperatureAroundLunch();
+            double temperatureAroundLunch = weatherService.findTomorrowsTemperatureAroundLunch();
             if (temperatureAroundLunch < -15) {
                 return "You will need a lot of energy to keep warm, tomorrow you should eat something very nutritious.";
             } else if (temperatureAroundLunch < 15) {
@@ -34,23 +34,23 @@ private final DarkSkyForecastService weatherService;
         }
     }
 
-      private double findTomorrowsTemperatureAroundLunch() throws IOException{
-          DailyData tomorrowRecord = this.tomorrowsWeatherRecord();
-          return (tomorrowRecord.getTemperatureMin()+tomorrowRecord.getTemperatureMax()) /2;
-    }
-
-
-    private DailyData tomorrowsWeatherRecord() throws IOException {
-        DarkSkyForecastResponse forecast = this.weatherService.queryService();
-        for (DailyData  record : forecast.getDaily().getData()) {
-            LocalDateTime recordTime = LocalDateTime.ofEpochSecond(record.getTime(),
-                                                                   0,
-                                                                   ZoneOffset.UTC);
-            if(recordTime.toLocalDate().equals(LocalDate.now().plusDays(1))){
-                return record;
-            }
-        }
-        throw new IllegalStateException("External service did not return record for tomorrow");
-    }
+//      private double findTomorrowsTemperatureAroundLunch() throws IOException{
+//          DailyData tomorrowRecord = this.tomorrowsWeatherRecord();
+//          return (tomorrowRecord.getTemperatureMin()+tomorrowRecord.getTemperatureMax()) /2;
+//    }
+//
+//
+//    private DailyData tomorrowsWeatherRecord() throws IOException {
+//        DarkSkyForecastResponse forecast = this.weatherService.queryService();
+//        for (DailyData  record : forecast.getDaily().getData()) {
+//            LocalDateTime recordTime = LocalDateTime.ofEpochSecond(record.getTime(),
+//                                                                   0,
+//                                                                   ZoneOffset.UTC);
+//            if(recordTime.toLocalDate().equals(LocalDate.now().plusDays(1))){
+//                return record;
+//            }
+//        }
+//        throw new IllegalStateException("External service did not return record for tomorrow");
+//    }
 
 }
