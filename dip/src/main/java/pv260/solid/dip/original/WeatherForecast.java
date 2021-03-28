@@ -1,4 +1,4 @@
-package pv260.solid.dip.original.model;
+package pv260.solid.dip.original;
 
 import java.io.IOException;
 import java.net.URL;

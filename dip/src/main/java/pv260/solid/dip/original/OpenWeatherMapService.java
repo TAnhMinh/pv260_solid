@@ -7,7 +7,6 @@ import java.net.URL;
 import javax.xml.bind.*;
 import javax.xml.transform.stream.StreamSource;
 import pv260.solid.dip.original.model.OpenWeatherMapResponse;
-import pv260.solid.dip.original.model.WeatherForecast;
 
 public class OpenWeatherMapService implements WeatherForecast {
 

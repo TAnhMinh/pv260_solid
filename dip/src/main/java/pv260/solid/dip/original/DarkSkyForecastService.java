@@ -2,16 +2,12 @@ package pv260.solid.dip.original;
 
 import pv260.solid.dip.original.model.DarkSkyForecastResponse;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import pv260.solid.dip.original.model.WeatherForecast;
 
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
 
 public class DarkSkyForecastService implements WeatherForecast {
