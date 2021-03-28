@@ -11,10 +11,10 @@ import pv260.solid.dip.original.model.DarkSkyForecastResponse.DailyData;
 import pv260.solid.dip.original.model.OpenWeatherMapResponse;
 
 public class RecommendedLunchService {
-private final DarkSkyForecastService weatherService;
+private final WeatherForecast weatherService;
 
-    public RecommendedLunchService() {
-        this.weatherService = new DarkSkyForecastService();
+    public RecommendedLunchService(WeatherForecast forecast) {
+        this.weatherService = forecast;
     }
 
     public String recomendLunchForTomorrow(){

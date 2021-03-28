@@ -9,10 +9,10 @@ import pv260.solid.dip.original.model.OpenWeatherMapResponse.Temperature;
 
 public class RecomendedOutfitService {
 
-    private final OpenWeatherMapService weatherService;
+    private final WeatherForecast weatherService;
 
-    public RecomendedOutfitService() {
-        this.weatherService = new OpenWeatherMapService();
+    public RecomendedOutfitService(WeatherForecast forecast) {
+        this.weatherService = forecast;
     }
 
     public String recomendOutfitForTomorrow() {
