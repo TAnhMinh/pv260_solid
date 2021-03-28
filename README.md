@@ -11,6 +11,7 @@
 ## Dependency Inversion Principle
 - The methods for lunch recommendation and outfit recommendation depend directly implementations of two forecast classes
 - We should replace this by an interface, so that we would be able to abstract the weather forecast
+- implementing DIP enables us to have more testable code, less fragile code. We can alter implementation details more easily, without rewriting the higher level parts.
 - DIP is the principle that higher level classes should not depend on concrete implementation of low level classes, instead they should both depend on abstractions. Alos, abstraction should not depend on implementation details.
-- dependency injection:
-- inversion of control:
+- inversion of control: I am not sure about this. I think about it as one of principles / ways how to achieve DIP principle. Instead of calls to specific function in some library, we call some "handler" which will deliver the functionality we need. I also found a description that it is separating "what to do" from "when to do"
+- dependency injection: I understand it as one of ways how to implement IoC, such that inject dependencies using constructors, setters etc.
